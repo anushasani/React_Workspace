@@ -7,6 +7,7 @@ import logo from "./logo.svg";
 const TrafficSignal = lazy(() =>
   import("./Component/TrafficSignal /TrafficSignal")
 );
+const Calculator = lazy(() => import("./Component/Calculator/Calculator"));
 
 const Home = () => {
   return (
@@ -20,6 +21,11 @@ const Home = () => {
           <li>
             <a href="/traffic-signal" target="_blank" rel="noopener noreferrer">
               1.Traffic Signal
+            </a>
+          </li>
+          <li>
+            <a href="/Calculator" target="_blank" rel="noopener noreferrer">
+              2.Calculator
             </a>
           </li>
         </ul>
@@ -39,6 +45,14 @@ const App = () => {
           element={
             <Suspense fallback={<div>Loading Traffic Signal...</div>}>
               <TrafficSignal />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/Calculator"
+          element={
+            <Suspense fallback={<div>Loading Calculator..</div>}>
+              <Calculator />
             </Suspense>
           }
         />

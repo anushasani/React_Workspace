@@ -46,8 +46,8 @@ const TrafficSignal = () => {
   return (
     <div className="traffic-signal-group">
       <TrafficSignalBoxGroup id={1} initialLight="red" />
-      <TrafficSignalBoxGroup id={2} initialLight="green" />
-      <TrafficSignalBoxGroup id={3} initialLight="yellow" />
+      <TrafficSignalBoxGroup id={2} initialLight="red" />
+      <TrafficSignalBoxGroup id={3} initialLight="red" />
     </div>
   );
 };
