@@ -9,6 +9,7 @@ const TrafficSignal = lazy(() =>
 );
 const Calculator = lazy(() => import("./Component/Calculator/Calculator"));
 const ToDoList = lazy(() => import("./Component/ToDoList/ToDoList"));
+const ProgressBar = lazy(() => import("./Component/ProgressBar/ProgressBar"));
 
 const Home = () => {
   return (
@@ -32,6 +33,11 @@ const Home = () => {
           <li>
             <a href="/ToDoList" target="_blank" rel="noopener noreferrer">
               3.ToDoList
+            </a>
+          </li>
+          <li>
+            <a href="/ProgressBar" target="_blank" rel="noopener noreferrer">
+              4.Progress Bar
             </a>
           </li>
         </ul>
@@ -67,6 +73,14 @@ const App = () => {
           element={
             <Suspense fallback={<div>Loading Calculator..</div>}>
               <ToDoList />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/ProgressBar"
+          element={
+            <Suspense fallback={<div>Loading Progress Bar..</div>}>
+              <ProgressBar />
             </Suspense>
           }
         />
