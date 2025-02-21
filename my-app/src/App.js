@@ -8,6 +8,7 @@ const TrafficSignal = lazy(() =>
   import("./Component/TrafficSignal /TrafficSignal")
 );
 const Calculator = lazy(() => import("./Component/Calculator/Calculator"));
+const ToDoList = lazy(() => import("./Component/ToDoList/ToDoList"));
 
 const Home = () => {
   return (
@@ -26,6 +27,11 @@ const Home = () => {
           <li>
             <a href="/Calculator" target="_blank" rel="noopener noreferrer">
               2.Calculator
+            </a>
+          </li>
+          <li>
+            <a href="/ToDoList" target="_blank" rel="noopener noreferrer">
+              3.ToDoList
             </a>
           </li>
         </ul>
@@ -53,6 +59,14 @@ const App = () => {
           element={
             <Suspense fallback={<div>Loading Calculator..</div>}>
               <Calculator />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/ToDoList"
+          element={
+            <Suspense fallback={<div>Loading Calculator..</div>}>
+              <ToDoList />
             </Suspense>
           }
         />
