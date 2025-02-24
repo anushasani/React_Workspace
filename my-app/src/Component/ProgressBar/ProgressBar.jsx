@@ -1,12 +1,36 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./ProgressBar.css";
 
 const ProgressBar = () => {
   const [progress, setProgress] = useState(0);
+  const [intervalID, setIntervalID] = useState(null); // To store interval ID
 
   const increaseProgress = () => {
-    setProgress((prev) => (prev < 100 ? prev + 10 : 100));
+    if (intervalID) {
+      // If there's already an interval running, clear it first
+      clearInterval(intervalID);
+    }
+    // Start a new interval if progress is less than 100
+    const id = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(id); // Stop the interval when progress reaches 100
+          return 100;
+        }
+        return prev + 10; // Increment progress by 10
+      });
+    }, 1000);
+    setIntervalID(id); // Store the interval ID
   };
+
+  // Cleanup when the component unmounts
+  useEffect(() => {
+    return () => {
+      if (intervalID) {
+        clearInterval(intervalID); // Ensure the interval is cleared when the component unmounts
+      }
+    };
+  }, [intervalID]);
 
   return (
     <div className="w-64 mx-auto mt-10">
