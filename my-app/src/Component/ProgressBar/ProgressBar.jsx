@@ -1,51 +1,82 @@
-import { useEffect, useState } from "react";
-import "./ProgressBar.css";
+import React, { useState, useEffect } from "react";
+// import "./progressBar.css"; // Keep styles in a CSS file
 
 const ProgressBar = () => {
-  const [progress, setProgress] = useState(0);
-  const [intervalID, setIntervalID] = useState(null); // To store interval ID
+  const [queue, setQueue] = useState([]);
+  const [isRunning, setIsRunning] = useState(false);
 
-  const increaseProgress = () => {
-    if (intervalID) {
-      // If there's already an interval running, clear it first
-      clearInterval(intervalID);
-    }
-    // Start a new interval if progress is less than 100
-    const id = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(id); // Stop the interval when progress reaches 100
-          return 100;
-        }
-        return prev + 10; // Increment progress by 10
-      });
-    }, 1000);
-    setIntervalID(id); // Store the interval ID
+  const addProgress = () => {
+    const progress = { id: Date.now(), status: "start" }; // Set initial status to "start"
+    setQueue((prevQueue) => [...prevQueue, progress]);
   };
 
-  // Cleanup when the component unmounts
-  useEffect(() => {
-    return () => {
-      if (intervalID) {
-        clearInterval(intervalID); // Ensure the interval is cleared when the component unmounts
+  const getInProgressCount = (queue) => {
+    return queue.filter((item) => item.status === "progress").length;
+  };
+
+  const startProcess = () => {
+    if (isRunning) return;
+
+    setIsRunning(getInProgressCount(queue));
+    processQueue();
+  };
+
+  const processQueue = () => {
+    console.log("calling processQueue");
+    setQueue((prevQueue) => {
+      if (getInProgressCount(prevQueue) >= 3) return prevQueue; // Only allow 3 in progress at a time
+
+      const nextIndex = prevQueue.findIndex((item) => item.status === "start");
+      if (nextIndex === -1) {
+        setIsRunning(false); // Stop if no more items with status "start"
+        return prevQueue;
       }
-    };
-  }, [intervalID]);
+
+      const updatedQueue = [...prevQueue];
+      updatedQueue[nextIndex].status = "progress"; // Set the next item to "progress"
+      return updatedQueue;
+    });
+
+    setTimeout(() => {
+      setQueue((prevQueue) => {
+        const updatedQueue = [...prevQueue];
+        const inProgressIndex = updatedQueue.findIndex(
+          (item) => item.status === "progress"
+        );
+
+        if (inProgressIndex !== -1) {
+          updatedQueue[inProgressIndex].status = "complete"; // Mark as complete
+        }
+
+        return updatedQueue;
+      });
+
+      processQueue(); // Check if there are more items to process after completion
+    }, 3000);
+  };
+
+  useEffect(() => {
+    if (
+      queue.some((item) => item.status === "start") &&
+      getInProgressCount(queue) < 3
+    ) {
+      startProcess();
+    }
+  }, [queue]);
 
   return (
-    <div className="w-64 mx-auto mt-10">
-      <div className="w-full bg-gray-200 rounded-full h-6">
-        <div
-          className="bg-blue-500 h-6 rounded-full transition-all duration-300"
-          style={{ width: `${progress}%` }}
-        ></div>
+    <div>
+      <div>
+        <button onClick={addProgress}>Add Progress Bar</button>
       </div>
-      <button
-        onClick={increaseProgress}
-        className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-      >
-        Increase Progress
-      </button>
+
+      <div className="container">
+        {queue.map((item) => (
+          <div className="progress-bar" key={item.id}>
+            <div className={`progress-inner ${item.status}`}>{item.status}</div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
