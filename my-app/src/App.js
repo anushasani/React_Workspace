@@ -10,6 +10,9 @@ const TrafficSignal = lazy(() =>
 const Calculator = lazy(() => import("./Component/Calculator/Calculator"));
 const ToDoList = lazy(() => import("./Component/ToDoList/ToDoList"));
 const ProgressBar = lazy(() => import("./Component/ProgressBar/ProgressBar"));
+const Password = lazy(() =>
+  import("./Component/PasswordValidation/PasswordValidation")
+);
 
 const Home = () => {
   return (
@@ -21,23 +24,28 @@ const Home = () => {
       <section>
         <ul style={{ listStyle: "none", fontSize: "2rem" }}>
           <li>
-            <a href="/traffic-signal" target="_blank" rel="noopener noreferrer">
+            <a href="/traffic-signal" rel="noopener noreferrer">
               1.Traffic Signal
             </a>
           </li>
           <li>
-            <a href="/Calculator" target="_blank" rel="noopener noreferrer">
+            <a href="/Calculator" rel="noopener noreferrer">
               2.Calculator
             </a>
           </li>
           <li>
-            <a href="/ToDoList" target="_blank" rel="noopener noreferrer">
+            <a href="/ToDoList" rel="noopener noreferrer">
               3.ToDoList
             </a>
           </li>
           <li>
-            <a href="/ProgressBar" target="_blank" rel="noopener noreferrer">
+            <a href="/ProgressBar" rel="noopener noreferrer">
               4.Progress Bar
+            </a>
+          </li>
+          <li>
+            <a href="/Password" rel="noopener noreferrer">
+              5.Password
             </a>
           </li>
         </ul>
@@ -81,6 +89,14 @@ const App = () => {
           element={
             <Suspense fallback={<div>Loading Progress Bar..</div>}>
               <ProgressBar />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/Password"
+          element={
+            <Suspense fallback={<div>Loading Password Validation..</div>}>
+              <Password />
             </Suspense>
           }
         />
