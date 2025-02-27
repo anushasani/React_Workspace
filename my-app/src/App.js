@@ -13,6 +13,9 @@ const ProgressBar = lazy(() => import("./Component/ProgressBar/ProgressBar"));
 const Password = lazy(() =>
   import("./Component/PasswordValidation/PasswordValidation")
 );
+const MovieCounter = lazy(() =>
+  import("./Component/Moviecounter/MovieCounter")
+);
 
 const Home = () => {
   return (
@@ -46,6 +49,11 @@ const Home = () => {
           <li>
             <a href="/Password" rel="noopener noreferrer">
               5.Password
+            </a>
+          </li>
+          <li>
+            <a href="/MovieCounter" rel="noopener noreferrer">
+              5.MovieCounter
             </a>
           </li>
         </ul>
@@ -97,6 +105,14 @@ const App = () => {
           element={
             <Suspense fallback={<div>Loading Password Validation..</div>}>
               <Password />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/MovieCounter"
+          element={
+            <Suspense fallback={<div>Loading MovieCounter Validation..</div>}>
+              <MovieCounter />
             </Suspense>
           }
         />
