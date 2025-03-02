@@ -16,6 +16,9 @@ const Password = lazy(() =>
 const MovieCounter = lazy(() =>
   import("./Component/Moviecounter/MovieCounter")
 );
+const SearchCustomer = lazy(() =>
+  import("./Component/CustomerSearch/SearchCustomer")
+);
 
 const Home = () => {
   return (
@@ -92,6 +95,7 @@ const App = () => {
             </Suspense>
           }
         />
+
         <Route
           path="/ProgressBar"
           element={
@@ -113,6 +117,16 @@ const App = () => {
           element={
             <Suspense fallback={<div>Loading MovieCounter Validation..</div>}>
               <MovieCounter />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/SearchCustomer"
+          element={
+            <Suspense
+              fallback={<div>Loading Search Customer Validation.....</div>}
+            >
+              <SearchCustomer />
             </Suspense>
           }
         />
