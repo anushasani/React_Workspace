@@ -20,6 +20,10 @@ const SearchCustomer = lazy(() =>
   import("./Component/CustomerSearch/SearchCustomer")
 );
 
+const ContactNumber = lazy(() =>
+  import("./Component/ContactNumber/ContactNumber")
+);
+
 const Home = () => {
   return (
     <div className="App">
@@ -57,6 +61,11 @@ const Home = () => {
           <li>
             <a href="/MovieCounter" rel="noopener noreferrer">
               5.MovieCounter
+            </a>
+          </li>
+          <li>
+            <a href="/ContactNumber" rel="noopener noreferrer">
+              6.ContactNumber
             </a>
           </li>
         </ul>
@@ -127,6 +136,14 @@ const App = () => {
               fallback={<div>Loading Search Customer Validation.....</div>}
             >
               <SearchCustomer />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/ContactNumber"
+          element={
+            <Suspense fallback={<div>Loading ContactNumber.....</div>}>
+              <ContactNumber />
             </Suspense>
           }
         />
