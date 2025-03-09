@@ -23,6 +23,7 @@ const SearchCustomer = lazy(() =>
 const ContactNumber = lazy(() =>
   import("./Component/ContactNumber/ContactNumber")
 );
+const CalenderDayView = lazy(()=>import("./Component/CalenderDayView/CalenderDayView"))
 
 const Home = () => {
   return (
@@ -66,6 +67,11 @@ const Home = () => {
           <li>
             <a href="/ContactNumber" rel="noopener noreferrer">
               6.ContactNumber
+            </a>
+          </li>
+          <li>
+            <a href="/CalenderDayView" rel="noopener noreferrer">
+              7.CalenderDayView
             </a>
           </li>
         </ul>
@@ -144,6 +150,14 @@ const App = () => {
           element={
             <Suspense fallback={<div>Loading ContactNumber.....</div>}>
               <ContactNumber />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/CalenderDayView"
+          element={
+            <Suspense fallback={<div>Loading CalenderDayView.....</div>}>
+              <CalenderDayView />
             </Suspense>
           }
         />
